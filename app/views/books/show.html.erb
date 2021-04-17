@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-3">
       <h2>User info</h2>
-      <p><%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60 %></p>
+      <p><%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, fallback: "noimage.png", size: "60x60" %></p>
       <table class="table">
         <tbody>
           <tr></tr>
@@ -18,11 +18,18 @@
           </tr>
         </tbody>
       </table>
+      <% if @book.user == current_user %>
       <div class="row">
-        <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
-    
+        <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
         <% end %>
       </div>
+      <% else %>
+      <div class="row">
+        <%= link_to user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
+        <% end %>
+      </div>
+      <% end %>
+      
       <h2 class="mt-3">New book</h2>
       <%= form_with model: @newbook, local:true do |f| %>
       <div class="form-group">
@@ -43,15 +50,17 @@
       <table class="table">
         <tbody>
             <tr>
-              <td><%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60 %><br>
+              <td><%= link_to @book.user do %>
+                  <%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, fallback: "noimage.png", size: "60x60" %><br>
                   <%= @book.user.name %>
+                  <% end %>
               </td>
-              <td><%= link_to books_path do %>
+              <td><%= link_to book_path do %>
                   <%= @book.title %>
                   <% end %>
               </td>
               <td><%= @book.body %></td>
-              <% if @user.id == current_user.id %>
+              <% if @book.user == current_user %>
               <td><%= link_to "Edit", edit_book_path(@book.id) %></td>
               <td><%= link_to "Destroy", book_path(@book.id), method: :delete %></td>
               <% end %>
