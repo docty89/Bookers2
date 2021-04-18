@@ -18,18 +18,10 @@
           </tr>
         </tbody>
       </table>
-      <% if @book.user == current_user %>
       <div class="row">
-        <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
+        <%= link_to edit_user_path(@book.user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
         <% end %>
       </div>
-      <% else %>
-      <div class="row">
-        <%= link_to user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
-        <% end %>
-      </div>
-      <% end %>
-      
       <h2 class="mt-3">New book</h2>
       <%= form_with model: @newbook, local:true do |f| %>
       <div class="form-group">
