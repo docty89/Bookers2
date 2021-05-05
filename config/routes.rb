@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get 'relationships/destroy'
   devise_for :users
   root to: 'homes#top'
-  get "/home/about" => 'homes#about'
+  get '/home/about' => 'homes#about'
+  
   
   resources :books, only: [:new, :create, :index, :show, :destroy, :edit, :update] do
     resource :favorites, only: [:create, :destroy]
@@ -16,5 +17,7 @@ Rails.application.routes.draw do
     get :followers, on: :member
     
   end
+  
+  get 'search' => 'searchs#search'
 end
 
