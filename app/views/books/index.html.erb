@@ -21,6 +21,14 @@
             <th>introduction</th>
             <th><%= current_user.introduction %></th>
           </tr>
+          <tr>
+            <th>follows</th>
+            <th><%= link_to current_user.followings.count, follows_user_path(current_user) %></th>
+          </tr>
+          <tr>
+            <th>followers</th>
+            <th><%= link_to current_user.followers.count, followers_user_path(current_user) %></th>
+          </tr>
         </tbody>
       </table>
       <div class="row">
@@ -67,13 +75,13 @@
               <td><%= book.body %></td>
               <% if book.favorited_by?(current_user) %>
               <td><%= link_to book_favorites_path(book), method: :delete do %>
-                  🧡<%= book.favorites.count %>
+                  💝<%= book.favorites.count %>
                   <% end %>
               </td>
               <% else %>
               <td>
                   <%= link_to book_favorites_path(book), method: :post do %>
-                  💙<%= book.favorites.count %>
+                  🖤<%= book.favorites.count %>
                   <% end %>
               </td>
               <% end %>

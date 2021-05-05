@@ -12,10 +12,26 @@
             <th>name</th>
             <th><%= @book.user.name %></th>
           </tr>
-          <tr>
+          <tr>  
             <th>introduction</th>
             <th><%= @book.user.introduction %></th>
           </tr>
+          <tr>
+            <th>follows</th>
+            <th><%= link_to @book.user.followings.count, follows_user_path(@book.user) %></th>
+          </tr>
+          <tr>
+            <th>followers</th>
+            <th><%= link_to @book.user.followers.count, followers_user_path(@book.user) %></th>
+          </tr>
+          <tr>
+            <% if current_user != @book.user %>
+              <% if @book.user.followed_by?(current_user) %>
+              <th><%= link_to "フォロー外す", user_relationships_path(@book.user), method: :delete %></th>
+              <% else %>
+              <th><%= link_to "フォローする", user_relationships_path(@book.user), method: :post %></th>
+              <% end %>
+            <% end %>          
         </tbody>
       </table>
       <div class="row">
@@ -54,13 +70,13 @@
               <td><%= @book.body %></td>
               <% if @book.favorited_by?(current_user) %>
               <td><%= link_to book_favorites_path(@book), method: :delete do %>
-                  🧡<%= @book.favorites.count %>
+                  💝️<%= @book.favorites.count %>
                   <% end %>
               </td>
-              <% else %>
+                  <% else %>
               <td>
                   <%= link_to book_favorites_path(@book), method: :post do %>
-                  💙<%= @book.favorites.count %>
+                  🖤<%= @book.favorites.count %>
                   <% end %>
               </td>
               <% end %>

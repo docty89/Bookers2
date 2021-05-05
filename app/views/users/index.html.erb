@@ -14,7 +14,15 @@
             <th>introduction</th>
             <th><%= current_user.introduction %></th>
           </tr>
-        </tbody>
+          <tr>
+            <th>follows</th>
+            <th><%= link_to current_user.followings.count, follows_user_path(current_user) %></th>
+          </tr>
+          <tr>
+            <th>followers</th>
+            <th><%= link_to current_user.followers.count, followers_user_path(current_user) %></th>
+          </tr>
+        </tbody>  
       </table>
       <div class="row">
         <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary btn-block fas fa-user-cog" do %>
@@ -51,14 +59,14 @@
             <tr>
               <td><%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "noimage.png", size: "60x60" %></td>
               <td><%= user.name %></td>
-              <td>フォロー数: </td>
-              <td>フォロワー数: </td>
+              <td>フォロー数: <%= user.followings.count %></td>
+              <td>フォロワー数: <%= user.followers.count %></td>
               <td>
                 <% if current_user != user %>
                   <% if user.followed_by?(current_user) %>
-                    <%=link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
+                    <%= link_to "フォロー外す", user_relationships_path(user), method: :delete %>
                   <% else %>
-                    <%=link_to "フォローする", user_relationships_path(user.id), method: :post %>
+                    <%= link_to "フォローする", user_relationships_path(user), method: :post %>
                   <% end %>
                 <% end %>
               </td>

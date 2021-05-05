@@ -10,10 +10,9 @@ class User < ApplicationRecord
   attachment :profile_image
   
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
-  # 中間テーブルを介して「follower」モデルのUser(フォローされた側)を集めることを「followings」と定義
-  has_many :followings, through: :active_relationships, source: :folower
+  has_many :followings, through: :active_relationships, source: :follower
   
-  has_many :passive_relationships, class_name: "Relationship", foreign_key: :folower_id
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :followers, through: :passive_relationships, source: :following
   
   def followed_by?(user)
