@@ -4,6 +4,9 @@
   <div class="row">
     <div class="col-md-3">
     <%= render 'users/info', user: @user %>
+    <% if current_user != @user %>
+      <%= link_to 'チャットする', chat_path(@user.id) %>
+    <% end %>
       <%= render 'books/form', book: @book %>
     </div>  
     <%= render 'books/list', books: @books %>
