@@ -73,3 +73,6 @@ gem 'jp_prefecture'
 gem 'dotenv-rails'
 
 gem 'pry-byebug'
+
+
+gem 'whenever', require: false
