@@ -4,7 +4,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #スーパークラス(devise)のcreateアクションを呼ぶ 
     super 
     #WelcomeMailerクラスのsend_when_signupメソッドを呼び、POSTから受け取ったuserのemailとnameを渡す
-    WelcomeMailer.send_when_signup(params[:user][:email],params[:user][:name]).deliver
+    @user = resource
+    WelcomeMailer.welcome_mail(@user).deliver_now if @user.valid?
   end
 
 
